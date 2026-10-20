@@ -1,5 +1,5 @@
 # Helpers for the calculator. The formatting functions repeat the internal ones
-# of the mhspcarpi package, so that numbers are shown the same way in the
+# of the arpirisk package, so that numbers are shown the same way in the
 # package's printed output and in the calculator.
 
 `%||%` <- function(x, y) if (is.null(x)) y else x

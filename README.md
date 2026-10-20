@@ -1,6 +1,6 @@
 # ARPI treatment effect calculator
 
-Web calculator for the risk model and treatment effects in the [mhspcarpi](https://github.com/wfukuokaya/mhspcarpi) R package: for a patient with metastatic hormone-sensitive prostate cancer, it shows the 4-year risk of death with androgen deprivation therapy (ADT) alone and with an androgen receptor pathway inhibitor (ARPI) plus ADT, and how the effect of adding an ARPI changes with baseline risk.
+Web calculator for the risk model and treatment effects in the [arpirisk](https://github.com/wfukuokaya/arpirisk) R package: for a patient with metastatic hormone-sensitive prostate cancer, it shows the 4-year risk of death with androgen deprivation therapy (ADT) alone and with an androgen receptor pathway inhibitor (ARPI) plus ADT, and how the effect of adding an ARPI changes with baseline risk.
 
 Live: <https://arpi-treatment-effect-estimator.pages.dev/>
 
@@ -10,7 +10,7 @@ The calculator is a Shiny app exported as a static [Shinylive](https://posit-dev
 
 ## Package version
 
-The model and all calculations come from mhspcarpi. `PACKAGE_REF` pins the package commit the calculator is built and tested with; the footer of the calculator shows the model version. To move to a new package version, update `PACKAGE_REF`, run the tests, and publish a release.
+The model and all calculations come from arpirisk. `PACKAGE_REF` pins the package commit the calculator is built and tested with; the footer of the calculator shows the model version. To move to a new package version, update `PACKAGE_REF`, run the tests, and publish a release.
 
 ## Repository layout
 
@@ -30,15 +30,15 @@ The model and all calculations come from mhspcarpi. `PACKAGE_REF` pins the packa
 Install the package at the pinned commit, then run the app or its tests from the repository root:
 
 ```r
-pak::pak(paste0("wfukuokaya/mhspcarpi@", readLines("PACKAGE_REF")[[1]]))
+pak::pak(paste0("wfukuokaya/arpirisk@", readLines("PACKAGE_REF")[[1]]))
 shiny::runApp("app")
 testthat::test_dir("tests/testthat")
 ```
 
-To build the static site, check out the package at the pinned commit next to this repository (`../mhspcarpi`, or give its path), then:
+To build the static site, check out the package at the pinned commit next to this repository (`../arpirisk`, or give its path), then:
 
 ```sh
-Rscript tools/build_shinylive.R _site ../mhspcarpi
+Rscript tools/build_shinylive.R _site ../arpirisk
 ```
 
 The build stops if the package checkout is not at the pinned commit.

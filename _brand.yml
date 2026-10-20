@@ -8,7 +8,7 @@
 # Kimberly, and Makara.
 meta:
   name: ARPI treatment effect calculator
-  link: https://github.com/wfukuokaya/mhspcarpi
+  link: https://github.com/wfukuokaya/arpirisk
 
 color:
   palette:

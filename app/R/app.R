@@ -1,8 +1,8 @@
 # The ARPI treatment effect calculator. mhspc_app() returns the Shiny app for a
-# model from the mhspcarpi package; app/app.R runs it locally, and
+# model from the arpirisk package; app/app.R runs it locally, and
 # tools/build_shinylive.R exports it as a static Shinylive site. The patient's
 # values can be passed in the query string, using the column names and units
-# listed by mhspcarpi::model_inputs(), for example `?psa=45&hemoglobin=128`.
+# listed by arpirisk::model_inputs(), for example `?psa=45&hemoglobin=128`.
 mhspc_app <- function(model = mhspc_model()) {
   rlang::check_installed(c("shiny", "bslib", "htmltools", "svglite"), reason = "to run the calculator.")
   check_model(model)

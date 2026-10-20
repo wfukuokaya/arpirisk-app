@@ -1,5 +1,5 @@
-# The app code runs against the installed mhspcarpi package, as in app/app.R.
-library(mhspcarpi)
+# The app code runs against the installed arpirisk package, as in app/app.R.
+library(arpirisk)
 purrr::walk(
   list.files(test_path("..", "..", "app", "R"), pattern = "[.]R$", full.names = TRUE),
   source
