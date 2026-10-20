@@ -74,8 +74,8 @@ shinylive::export(
 # frame, which the app's own page covers once it renders. The screen downloads
 # the files R needs at startup with a progress bar, then starts Shinylive, which
 # reads them from the browser cache. The list was taken from the requests of a
-# first visit with Shinylive 0.8; a file missing from it only makes the bar less
-# accurate.
+# first visit with Shinylive assets 0.10.12; a file missing from it only makes
+# the bar less accurate.
 startup_files <- file.path("shinylive", "webr", c(
   "R.js", "R.wasm", "libRblas.so", "libRlapack.so", "library.js.metadata", "library.data.gz",
   "packages/metadata.rds",
