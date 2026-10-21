@@ -45,11 +45,11 @@ The build stops if the package checkout is not at the pinned commit.
 
 ## Deployment
 
-The `deploy` workflow builds the site and deploys it to the Cloudflare Pages project `arpi-treatment-effect-estimator` when a release is published or when it is started by hand. It needs the repository secrets `CLOUDFLARE_API_TOKEN` (permission: Cloudflare Pages, Edit) and `CLOUDFLARE_ACCOUNT_ID`.
+The `deploy` workflow builds the site and publishes it to Cloudflare Pages on each release. It needs the repository secrets `CLOUDFLARE_API_TOKEN` (Cloudflare Pages: Edit) and `CLOUDFLARE_ACCOUNT_ID`.
 
 ## Browser support
 
-R runs in the browser as WebAssembly. WebKit browsers (Safari, and every browser on an iPhone or iPad) give it a smaller stack than Chrome or Firefox, so the app keeps its call stacks shallow: the page is rendered once, inputs and estimates are computed in one reactive, outputs return early instead of calling `shiny::req()`, and the effect plot is drawn as SVG with svglite rather than rasterized by `renderPlot()`. Check changes in WebKit, for example with Playwright's WebKit in iPhone emulation, as well as in Chrome.
+R runs in the browser as WebAssembly. WebKit browsers (Safari, and all browsers on iPhone and iPad) allow a smaller stack than Chrome or Firefox, so the app keeps call stacks shallow and draws the effect plot as SVG. Check changes in WebKit as well as in Chrome.
 
 ## License
 
