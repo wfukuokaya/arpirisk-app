@@ -26,6 +26,8 @@ test_that("mhspc_app builds a Shiny app with every input", {
   expect_match(app_css(), ".header-art::after", fixed = TRUE)
   expect_false(grepl("Details for this patient", html, fixed = TRUE))
   expect_match(html, "class=\"results-grid\"", fixed = TRUE)
+  expect_match(html, "from 4 randomized clinical trials (LATITUDE, ARCHES, TITAN, and ARASENS)", fixed = TRUE)
+  expect_false(grepl("app-title-meta", html, fixed = TRUE))
   expect_match(html, "Risk of death within 4 years", fixed = TRUE)
   expect_match(html, "ARPI plus ADT</span>", fixed = TRUE)
   expect_match(html, "Effect of adding an ARPI", fixed = TRUE)

@@ -30,8 +30,6 @@ a:hover { color: var(--primary-deep); }
 .app-title-text { display: flex; flex-direction: column; gap: 0.2rem; }
 .app-title-main { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; }
 .app-title-sub { font-size: 0.9rem; color: #ffffff; }
-.app-title-meta { font-size: 0.8rem; color: #ffffff; max-width: 24rem; text-align: right; }
-@media (max-width: 767.98px) { .app-title-meta { display: none; } }
 
 /* Sidebar inputs */
 .bslib-sidebar-layout > .sidebar { background: var(--paper); border-color: var(--hairline); }
@@ -271,7 +269,7 @@ fieldset.input-block legend {
   body { background: #ffffff; }
   .header-art { display: none !important; }
   .bslib-page-sidebar > .navbar { background: #ffffff; padding: 0 0 0.6rem; }
-  .app-title, .app-title-sub, .app-title-meta { color: var(--ink); }
+  .app-title, .app-title-sub { color: var(--ink); }
   .bslib-page-sidebar .bslib-sidebar-layout { display: block !important; height: auto !important; }
   .bslib-sidebar-layout > .sidebar, .bslib-sidebar-layout > .collapse-toggle,
   .sidebar-actions, .scale-switch, .empty-state, .about, .readout-frame { display: none !important; }

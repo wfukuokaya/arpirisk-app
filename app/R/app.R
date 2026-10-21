@@ -38,10 +38,6 @@ app_ui <- function(model) {
         class = "app-title-text",
         shiny::tags$span(class = "app-title-main", "ARPI treatment effect calculator"),
         shiny::tags$span(class = "app-title-sub", "Metastatic hormone-sensitive prostate cancer")
-      ),
-      shiny::tags$span(
-        class = "app-title-meta",
-        "4-year risk of death with ADT, with or without an ARPI, from 4 randomized clinical trials"
       )
     )
   )
@@ -300,7 +296,10 @@ results_ui <- function(model) {
         class = "results-header",
         shiny::tags$p(
           class = "comparison-note",
-          "Estimates for an ARPI plus ADT compared with ADT alone"
+          paste(
+            "Estimates for an ARPI plus ADT compared with ADT alone, from 4 randomized clinical trials",
+            "(LATITUDE, ARCHES, TITAN, and ARASENS)"
+          )
         )
       ),
       shiny::uiOutput("result_notes"),
