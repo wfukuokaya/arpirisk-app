@@ -43,13 +43,7 @@ Rscript tools/build_shinylive.R _site ../arpirisk
 
 The build stops if the package checkout is not at the pinned commit.
 
-## Deployment
-
-The `deploy` workflow builds the site and publishes it to Cloudflare Pages on each release. It needs the repository secrets `CLOUDFLARE_API_TOKEN` (Cloudflare Pages: Edit) and `CLOUDFLARE_ACCOUNT_ID`.
-
-## Browser support
-
-R runs in the browser as WebAssembly. WebKit browsers (Safari, and all browsers on iPhone and iPad) allow a smaller stack than Chrome or Firefox, so the app keeps call stacks shallow and draws the effect plot as SVG. Check changes in WebKit as well as in Chrome.
+Check changes in Safari or another WebKit browser as well as in Chrome: iPhone browsers give R in WebAssembly a smaller stack, and the app relies on keeping its call stacks shallow.
 
 ## License
 
