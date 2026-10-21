@@ -327,8 +327,12 @@ results_ui <- function(model) {
               shiny::tags$p(class = "metric-title", "Effect of adding an ARPI"),
               shiny::tags$div(
                 class = "effect-metric-row",
-                effect_metric("Additional patients alive at 4 years", shiny::uiOutput("ard_value", inline = TRUE), "ard_detail"),
-                effect_metric("Additional time alive over 4 years", shiny::uiOutput("rmst_value", inline = TRUE), "rmst_detail"),
+                effect_metric(
+                  "Additional patients alive at 4 years", shiny::uiOutput("ard_value", inline = TRUE), "ard_detail"
+                ),
+                effect_metric(
+                  "Additional time alive over 4 years", shiny::uiOutput("rmst_value", inline = TRUE), "rmst_detail"
+                ),
                 effect_metric("Hazard ratio for death", shiny::textOutput("hr_value", inline = TRUE), "hr_detail")
               )
             ),
