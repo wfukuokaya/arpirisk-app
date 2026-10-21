@@ -135,6 +135,25 @@ effect_plot_ui <- function(result, scale, model, width = NULL) {
   )
 }
 
+# A risk in the patient summary: the value above its treatment label.
+risk_metric <- function(value, label) {
+  shiny::tags$div(
+    class = "risk",
+    shiny::tags$span(class = "metric-value", value),
+    shiny::tags$span(class = "metric-label", label)
+  )
+}
+
+# A treatment effect in the patient summary: label, value, and 95% CI.
+effect_metric <- function(label, value, detail_id) {
+  shiny::tags$div(
+    class = "effect-metric",
+    shiny::tags$span(class = "metric-label", label),
+    shiny::tags$span(class = "metric-value", value),
+    shiny::tags$span(class = "metric-detail", shiny::textOutput(detail_id, inline = TRUE))
+  )
+}
+
 # Renders part of the page to HTML, keeping its dependencies, so that rendering
 # the whole page does not recurse through that part's nesting (see app_ui()).
 flatten_tags <- function(x) {
@@ -285,42 +304,40 @@ results_ui <- function(model) {
         )
       ),
       shiny::uiOutput("result_notes"),
-      bslib::layout_column_wrap(
-        width = "150px",
-        fill = FALSE,
-        heights_equal = "row",
-        class = "value-boxes",
-        bslib::value_box(
-          title = "Risk of death within 4 years with ADT alone",
-          value = shiny::textOutput("risk_value", inline = TRUE)
-        ),
-        bslib::value_box(
-          title = "Risk of death within 4 years with an ARPI plus ADT",
-          value = shiny::textOutput("arpi_risk_value", inline = TRUE)
-        ),
-        bslib::value_box(
-          title = "Additional patients alive at 4 years with an ARPI",
-          value = shiny::uiOutput("ard_value", inline = TRUE),
-          shiny::tags$p(class = "value-box-detail", shiny::textOutput("ard_detail", inline = TRUE))
-        ),
-        bslib::value_box(
-          title = "Additional time alive over 4 years with an ARPI",
-          value = shiny::uiOutput("rmst_value", inline = TRUE),
-          shiny::tags$p(class = "value-box-detail", shiny::textOutput("rmst_detail", inline = TRUE))
-        ),
-        bslib::value_box(
-          title = "Hazard ratio for death with an ARPI",
-          value = shiny::textOutput("hr_value", inline = TRUE),
-          shiny::tags$p(class = "value-box-detail", shiny::textOutput("hr_detail", inline = TRUE))
-        )
-      ),
-      bslib::layout_column_wrap(
-        width = "360px",
-        fill = FALSE,
-        heights_equal = "row",
+      # One column; from 1200px the patient summary sits beside the plot (see
+      # .results-grid in app_css()).
+      shiny::tags$div(
+        class = "results-grid",
         bslib::card(
-          bslib::card_header("Expected outcomes for 100 patients like this"),
-          bslib::card_body(shiny::uiOutput("icon_array"))
+          class = "summary-card",
+          bslib::card_header("This patient"),
+          bslib::card_body(
+            shiny::tags$div(
+              class = "risk-pair",
+              shiny::tags$p(class = "metric-title", "Risk of death within 4 years"),
+              shiny::tags$div(
+                class = "risk-values",
+                risk_metric(shiny::textOutput("risk_value", inline = TRUE), "ADT alone"),
+                shiny::tags$span(class = "risk-arrow", `aria-hidden` = "true", "\u2192"),
+                risk_metric(shiny::textOutput("arpi_risk_value", inline = TRUE), "ARPI plus ADT")
+              )
+            ),
+            shiny::tags$div(
+              class = "effect-metrics",
+              shiny::tags$p(class = "metric-title", "Effect of adding an ARPI"),
+              shiny::tags$div(
+                class = "effect-metric-row",
+                effect_metric("Additional patients alive at 4 years", shiny::uiOutput("ard_value", inline = TRUE), "ard_detail"),
+                effect_metric("Additional time alive over 4 years", shiny::uiOutput("rmst_value", inline = TRUE), "rmst_detail"),
+                effect_metric("Hazard ratio for death", shiny::textOutput("hr_value", inline = TRUE), "hr_detail")
+              )
+            ),
+            shiny::tags$div(
+              class = "outcomes",
+              shiny::tags$p(class = "metric-title", "Expected outcomes for 100 patients like this"),
+              shiny::uiOutput("icon_array")
+            )
+          )
         ),
         bslib::card(
           bslib::card_header(

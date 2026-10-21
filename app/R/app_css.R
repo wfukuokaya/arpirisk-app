@@ -122,7 +122,6 @@ fieldset.input-block legend {
     order: -1; flex: none; max-height: none !important; overflow: visible !important;
     border-bottom: 1px solid var(--hairline);
   }
-  .value-boxes { grid-template-columns: 1fr !important; }
   .bslib-page-sidebar .bslib-sidebar-layout[data-collapsible-mobile='false'] > .sidebar > .sidebar-content {
     max-height: none !important; overflow: visible !important;
   }
@@ -156,31 +155,49 @@ fieldset.input-block legend {
   gap: 0.5rem 1rem; margin-bottom: 0.75rem;
 }
 .comparison-note { color: var(--ink-secondary); font-size: 0.9rem; margin: 0; }
-.value-boxes { margin-bottom: 1rem; grid-template-columns: 1fr !important; row-gap: 0.75rem; }
-@media (min-width: 640px) {
-  .value-boxes { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+/* Results: one column; from 1200px the patient summary sits beside the plot,
+   in equal columns, and from 1500px the plot gets the larger share.
+   The main area is capped so that the numbers do not drift apart on wide
+   screens, and cards keep their own heights instead of stretching to match. */
+.bslib-sidebar-layout > .main > * { max-width: 82rem; }
+.results-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; }
+@media (min-width: 1200px) {
+  .results-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
-/* From 1140px: the 2 risks share the first row, the 3 treatment effects the second. */
-@media (min-width: 1140px) {
-  .value-boxes { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
-  .value-boxes > * { grid-column: span 2; }
-  .value-boxes > :nth-child(-n + 2) { grid-column: span 3; }
+@media (min-width: 1500px) {
+  .results-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
 }
-.bslib-value-box {
-  border: 0 !important; border-top: 2px solid var(--ink) !important; border-radius: 0 !important;
-  background: transparent !important; box-shadow: none !important;
+.results-grid > .card { margin-bottom: 0; }
+.summary-card > .card-body { container-type: inline-size; }
+.metric-title { font-size: 0.85rem; color: var(--ink-secondary); margin: 0 0 0.4rem; }
+.metric-value {
+  display: block; font-size: 2.1rem; font-weight: 600; line-height: 1.05;
+  color: var(--ink); font-variant-numeric: tabular-nums;
 }
-.bslib-value-box > .card-body { padding: 0; }
-.bslib-value-box .value-box-area { padding: 0.6rem 0.2rem 0.5rem; justify-content: flex-start; }
-.bslib-value-box .value-box-title { font-size: 0.85rem; color: var(--ink-secondary); margin-bottom: 0.35rem; }
-.bslib-value-box .value-box-value {
-  font-size: 2.1rem; font-weight: 600; line-height: 1.05;
-  margin-bottom: 0.3rem; color: var(--ink); font-variant-numeric: tabular-nums;
+.metric-label { display: block; font-size: 0.85rem; color: var(--ink-secondary); }
+.metric-detail { display: block; font-size: 0.8rem; color: var(--ink-secondary); margin-top: 0.15rem; }
+.value-unit { font-size: 0.95rem; font-weight: 500; color: var(--ink-secondary); margin-left: 0.3rem; }
+.risk-values { display: flex; align-items: flex-start; gap: 1.25rem; }
+.risk .metric-label { margin-top: 0.25rem; }
+.risk-arrow { font-size: 1.5rem; line-height: 2.2rem; color: var(--ink-muted); }
+/* The card body already spaces its children; the rules only add dividers. */
+.effect-metrics, .outcomes { border-top: 1px solid var(--hairline); padding-top: 0.9rem; }
+.effect-metric-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.effect-metric .metric-label { min-height: 2.5em; line-height: 1.25; }
+.effect-metric .metric-value { font-size: 1.7rem; margin: 0.2rem 0 0; }
+@container (max-width: 400px) {
+  .effect-metric-row { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
+  .effect-metric .metric-label { min-height: 0; }
 }
-.bslib-value-box .value-unit {
-  font-size: 0.95rem; font-weight: 500; color: var(--ink-secondary); margin-left: 0.3rem;
+/* With room, the icon chart sits beside its legend. */
+@container (min-width: 400px) {
+  #icon_array {
+    display: grid; grid-template-columns: minmax(150px, 230px) minmax(0, 1fr);
+    column-gap: 1.25rem; align-items: center;
+  }
+  #icon_array .icon-summary { grid-column: 1 / -1; }
+  #icon_array .icon-array { margin-bottom: 0.25rem; }
 }
-.bslib-value-box .value-box-detail { font-size: 0.85rem; color: var(--ink-secondary); margin: 0; }
 .result-notes {
   border-left: 3px solid var(--warning-rule); background: var(--warning-wash);
   border-radius: 3px; padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.875rem;
@@ -259,9 +276,9 @@ fieldset.input-block legend {
   .bslib-sidebar-layout > .sidebar, .bslib-sidebar-layout > .collapse-toggle,
   .sidebar-actions, .scale-switch, .empty-state, .about, .readout-frame { display: none !important; }
   .bslib-sidebar-layout > .main { overflow: visible !important; padding: 0 !important; }
-  .value-boxes { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .results-grid { grid-template-columns: minmax(0, 1fr); }
   .accordion-button::after { display: none !important; }
-  .card, .bslib-value-box, .accordion-item { break-inside: avoid; box-shadow: none !important; }
+  .card, .accordion-item { break-inside: avoid; box-shadow: none !important; }
   .icon-array .icon { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .icon-legend .swatch { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   a[href]::after { content: none !important; }
